@@ -4,8 +4,6 @@ Created on Tue Jan 23 19:25:26 2024
 
 @author: replica
 """
-import copy
-
 def datas(map_):
     height, width = len(map_), len(map_[0])
     result = []
