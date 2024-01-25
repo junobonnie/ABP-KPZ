@@ -8,7 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from atom import *
 from ABP_density import CIC
-from FloodFill import floodfill, color_maps
+from FloodFill import floodfill
 
 def binarization(map_, threshold):
     return list(map(lambda x : list(map(lambda y : 1 if y > threshold else 0, x)), map_))
