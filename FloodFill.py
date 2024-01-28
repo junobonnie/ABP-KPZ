@@ -25,20 +25,6 @@ def next_candidates(map_, cluster, candidates, point):
     return result
 
 def floodfill(map_):
-    datas_ = datas(map_)
-    clusters = []
-    while datas_:
-        cluster = []
-        candidates = [datas_[0]]
-        while candidates:
-           candidate = candidates.pop()
-           candidates.extend(next_candidates(map_, cluster, candidates, candidate))
-           cluster.append(candidate)
-           datas_.remove(candidate)
-        clusters.append(cluster)
-    return clusters
-
-def floodfill_new(map_):
     from collections import deque
     clusters = []
     check = [i[:] for i in map_]
@@ -80,7 +66,7 @@ if __name__=="__main__":
     plt.axis('off')
     plt.show()
     
-    clusters = floodfill_new(map_)
+    clusters = floodfill(map_)
     color_maps(map_, clusters)
     plt.figure(dpi=300)
     plt.imshow(map_, cmap='rainbow')
