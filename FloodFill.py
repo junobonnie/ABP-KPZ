@@ -38,12 +38,34 @@ def floodfill(map_):
         clusters.append(cluster)
     return clusters
 
+def floodfill_new(map_):
+    from collections import deque
+    clusters = []
+    check = [i[:] for i in map_]
+    dir = ((-1, 0), (1, 0), (0, -1), (0, 1))
+    H, W = len(map_), len(map_[0])
+    for i in range(H):
+        for j in range(W):
+            if check[i][j]:
+                cluster = [(j, i)]
+                candidate = deque([(i, j)])
+                check[i][j] = 0
+                while candidate:
+                    x, y = candidate.popleft()
+                    for dx, dy in dir:
+                        nx, ny = x + dx, y + dy
+                        if 0 <= nx < H and 0 <= ny < W and check[nx][ny]:
+                            check[nx][ny] = 0
+                            candidate.append((nx, ny))
+                            cluster.append((ny, nx))
+                clusters.append(cluster)
+    return clusters
+
 def color_maps(map_, clusters):
     color = 1
     for cluster in clusters:
         color += 1
-        for point in cluster:
-            i, j = point
+        for i, j in cluster:
             map_[j][i] = color
     
 if __name__=="__main__":
@@ -58,7 +80,7 @@ if __name__=="__main__":
     plt.axis('off')
     plt.show()
     
-    clusters = floodfill(map_)
+    clusters = floodfill_new(map_)
     color_maps(map_, clusters)
     plt.figure(dpi=300)
     plt.imshow(map_, cmap='rainbow')
